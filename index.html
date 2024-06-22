@@ -3,10 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&display=swap" rel="stylesheet">
     <title>Library app</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script href="books.js"></script>
+    <h1>Odin Library App</h1>
+    
+    <div class="container">
+        
+        <div class="book_table">
+            <table class="libraryTable">
+              <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Number of pages</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </table>
+        </div>
+
+        <div class="input_new">
+            <form action="post">
+                <p>New Book</p>
+                <ul>
+                    <li>
+                        <label for="title">Book Title</label>
+                        <input type="text" id="title" name="book_title">
+                    </li>
+                    <li>
+                        <label for="author">Author</label>
+                        <input type="text" id="author" name="book_author">
+                    </li>
+                    <li>
+                        <label for="pages"># of Pages</label>
+                        <input type="text" id="pages" name="numberOfPages">
+                    </li>
+                    <li>
+                        <label for="read">Read/Not read yet</label>
+                        <input type="text" name="read" id="read_status">
+                    </li>
+                </ul>
+                <button type="submit">Add Book</button>
+            </form>
+        </div>
+        
+    </div>
+    <script src="books.js"></script>
 </body>
 </html>
