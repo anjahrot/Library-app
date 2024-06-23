@@ -9,6 +9,15 @@ function Book(title, author, pages, read) {
     this.info = function(){
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
     }
+
+    this.toggle = function(){
+        if(this.read.toLowerCase() === 'read') {
+            this.read = 'not read yet';
+        } else {
+            this.read = 'read';
+        }
+        return this.read;
+    }
 }
 
 function addBookToLibrary(book) {
@@ -19,7 +28,7 @@ function addBookToLibrary(book) {
 const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, 'not read yet');
 const lordOfRings = new Book('The Lord of the Rings', 'J.R.R Tolkien', 1216, 'read')
 const harryPotter = new Book('Harry Potter and the Philosopher`s Stone ', 'J.K. Rowling', 223, 'not read yet')
-console.log(harryPotter);
+
 
 addBookToLibrary(theHobbit);
 addBookToLibrary(lordOfRings);
@@ -114,14 +123,7 @@ formElem.addEventListener("formdata", (e) => {
 
     /* Add eventlistener to change status button */
     status_btn.addEventListener('click', (e) => {
-        let rowIndex = newRow.rowIndex;
-        const status = table.rows[rowIndex].cells[3];
-
-        if (status.innerHTML.toLowerCase() === 'read'){
-            status.innerHTML = 'not read yet';
-        } else {
-            status.innerHTML = 'read';
-        }
+        cells.cell4.innerHTML = newBook.toggle()
 
     });      
 });
