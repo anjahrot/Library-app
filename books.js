@@ -40,9 +40,19 @@ myLibrary.forEach(element => {
 
 /* Add book to library in the browser */
 
-/* Reference to form and button in HTML */
+/* Reference to form and buttons in HTML */
 const formElem = document.querySelector("form");
-let submit_button = document.querySelector("button");
+let submit_button = document.querySelector(".submit_button");
+let add_button = document.querySelector(".newBook");
+
+/* check if form is hidden and show it */
+add_button.addEventListener('click', () => {
+        formElem.style.display = 'block';
+        add_button.style.display = 'none';
+
+});
+
+
 
 /* Stop default event and trigger formdata event  */
 submit_button.addEventListener('click', (e) => {
@@ -64,6 +74,12 @@ formElem.addEventListener("formdata", (e) => {
     newRow.cell2.innerHTML = data.get("book_author");
     newRow.cell3.innerHTML = data.get("numberOfPages");
     newRow.cell4.innerHTML = data.get("read_status"); 
+
+    /* Hide form-element and show add new book button */
+    formElem.style.display = 'none';
+    add_button.style.display = 'block';
+    /* Reset input fields to allow adding a new book */
+    formElem.reset();
 } )
     
 
