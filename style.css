@@ -32,16 +32,24 @@ h1 {
 table {
     width: 80vw;
     background-color: #06b6d4;
+    border-radius: 5px;
+}
+
+table th {
+    height: 30px;
 }
 
 table th:not(:last-child) {
-    width: 20%;
-    height: 30px;
+    width: 15%;
     border: 2px solid black;
 }
 
 table th:first-child {
     width: 40%;
+}
+
+table th:last-child {
+    width: 25%;
 }
 
 table td {
@@ -95,4 +103,12 @@ button {
     font-family: 'Playwrite NO',Arial, Helvetica, sans-serif;
 }
 
-/* button colors: #083344 eller #164e63 */
+.input_new button {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+.delete_button {
+    margin: 0px 10px;
+}
