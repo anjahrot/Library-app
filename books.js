@@ -10,7 +10,7 @@ function Book(title, author, pages, read) {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
     }
 
-    this.toggle = function(){
+    this.toggle = function(){     
         if(this.read.toLowerCase() === 'read') {
             this.read = 'not read yet';
         } else {
@@ -29,36 +29,67 @@ const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, 'not read yet');
 const lordOfRings = new Book('The Lord of the Rings', 'J.R.R Tolkien', 1216, 'read')
 const harryPotter = new Book('Harry Potter and the Philosopher`s Stone ', 'J.K. Rowling', 223, 'not read yet')
 
-
 addBookToLibrary(theHobbit);
 addBookToLibrary(lordOfRings);
 addBookToLibrary(harryPotter);
+/* Finished manually adding content */
 
-let table = document.querySelector(".libraryTable");
 
-myLibrary.forEach(element => {
+const table = document.querySelector(".libraryTable");
+const table_body = document.querySelector(".table-body");
+
+/* Render library - show in table*/
+function renderLibrary() {
+    table_body.innerHTML = ''; /* Empty table before rerendering */
+    console.log(myLibrary);
+    myLibrary.forEach(element => {
 
     //create row and cells
     let cells = makeRow();
 
-    //set content in cells
     cells.cell1.innerHTML = element.title;
     cells.cell2.innerHTML = element.author;
     cells.cell3.innerHTML = element.pages;
     cells.cell4.innerHTML = element.read;
+
+    let newRow = cells.row;
+
+    /* Set dataattribute on row to link click-event to a specific row */
+    newRow.setAttribute("data-row-index", table.rows.length);
+    let id = newRow.rowIndex; 
+    console.log(id);
+    /* Add delete button for each book */
+    let btn = document.createElement("button");
+    btn.innerText = 'Delete';
+    btn.classList.add("delete_button");
+    cells.cell5.appendChild(btn);
+
+    /* Add button to change read status for each book */
+    let status_btn = document.createElement("button");
+    status_btn.innerText = 'Change';
+    cells.cell5.appendChild(status_btn);
+
+    /* Add eventlistener to delete buttons */
+    btn.addEventListener('click', (e) => {
+        table.deleteRow(id);
+        myLibrary.splice(id-1, 1); /* remove from libraryarray */
+        renderLibrary();
+    }); 
+
+    /* Add eventlistener to change status button */
+    status_btn.addEventListener('click', (e) => {
+        cells.cell4.innerHTML = element.toggle();
+    });      
 }); 
+};
 
-/* Finished manually adding content */
-
-
-/* Add book to library in the browser */
 
 /* Reference to form and buttons in HTML */
 const formElem = document.querySelector("form");
-let submit_button = document.querySelector(".submit_button");
-let add_button = document.querySelector(".newBook");
+const submit_button = document.querySelector(".submit_button");
+const add_button = document.querySelector(".newBook");
 
-/* show form in click event, and hide add new book button */
+/* show form in click event and hide 'Add new book' button */
 add_button.addEventListener('click', () => {
         formElem.style.display = 'block';
         add_button.style.display = 'none';
@@ -71,15 +102,9 @@ submit_button.addEventListener('click', (e) => {
     e.preventDefault();
 
     /* Creating a new formdata object */
-    new FormData(formElem);    
-});
-
-
-formElem.addEventListener("formdata", (e) => {
-
-    /* Get the formdata from the event object and write values to Book object */
-    const data = e.formData;
+    const data = new FormData(formElem);    
     
+    /* Write form data to new Book element and add to Library */
     let title = data.get("book_title");
     let author = data.get("book_author");
     let pages = data.get("numberOfPages");
@@ -87,27 +112,6 @@ formElem.addEventListener("formdata", (e) => {
     let newBook = new Book(title, author,pages,read);
    
     addBookToLibrary(newBook);    
-    
-    /* Add new book to table */
-    let cells = makeRow();
-    cells.cell1.innerHTML = title;
-    cells.cell2.innerHTML = author;
-    cells.cell3.innerHTML = pages;
-    cells.cell4.innerHTML = read;
-    let newRow = cells.row;
-    /* Set dataattribute on row to link click-event to a specific row */
-    newRow.setAttribute("data-row-index", table.rows.length);
-
-    /* Add delete button for each book */
-    let btn = document.createElement("button");
-    btn.innerText = 'Delete';
-    btn.classList.add("delete_button");
-    cells.cell5.appendChild(btn);
-
-    /* Add button to change read status for each book */
-    let status_btn = document.createElement("button");
-    status_btn.innerText = 'Change';
-    cells.cell5.appendChild(status_btn);
 
     /* Hide form-element and show add new book button */
     formElem.style.display = 'none';
@@ -115,22 +119,14 @@ formElem.addEventListener("formdata", (e) => {
     
     /* Reset input fields to allow adding a new book */
     formElem.reset();
-    
-    /* Add eventlistener to delete buttons */
-    btn.addEventListener('click', (e) => {
-            table.deleteRow(newRow.rowIndex);
-    }); 
 
-    /* Add eventlistener to change status button */
-    status_btn.addEventListener('click', (e) => {
-        cells.cell4.innerHTML = newBook.toggle()
-
-    });      
+    /* Show updated library */
+    renderLibrary();      
 });
 
 
 function makeRow() {
-    let row = table.insertRow();
+    let row = table_body.insertRow();
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
@@ -139,3 +135,5 @@ function makeRow() {
 
     return {row, cell1, cell2, cell3, cell4, cell5};
 }
+
+renderLibrary();
