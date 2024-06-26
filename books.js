@@ -10,13 +10,8 @@ function Book(title, author, pages, read) {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
     }
 
-    this.toggle = function(){     
-        if(this.read.toLowerCase() === 'read') {
-            this.read = 'not read yet';
-        } else {
-            this.read = 'read';
-        }
-        return this.read;
+    this.toggle = function(){    
+        return this.read = (this.read.toLowerCase() === 'read') ? 'not read yet': 'read'; 
     }
 }
 
@@ -41,7 +36,6 @@ const table_body = document.querySelector(".table-body");
 /* Render library - show in table*/
 function renderLibrary() {
     table_body.innerHTML = ''; /* Empty table before rerendering */
-    console.log(myLibrary);
     myLibrary.forEach(element => {
 
     //create row and cells
@@ -57,7 +51,7 @@ function renderLibrary() {
     /* Set dataattribute on row to link click-event to a specific row */
     newRow.setAttribute("data-row-index", table.rows.length);
     let id = newRow.rowIndex; 
-    console.log(id);
+   
     /* Add delete button for each book */
     let btn = document.createElement("button");
     btn.innerText = 'Delete';

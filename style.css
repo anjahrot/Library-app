@@ -28,6 +28,10 @@ h1 {
     padding: 20px;
 }
 
+.book_table {
+    flex-shrink: 1;
+}
+
 /* Table with books */
 table {
     width: 60vw;
