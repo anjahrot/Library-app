@@ -1,21 +1,24 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+class Book {
+    constructor(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    }
 
-    this.info = function(){
+    info() {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
     }
 
-    this.toggle = function(){    
+    toggle() {    
         return this.read = (this.read.toLowerCase() === 'read') ? 'not read yet': 'read'; 
     }
+
 }
 
-function addBookToLibrary(book) {
+function addToLibrary(book) {
     myLibrary.push(book);
 }
 
@@ -23,10 +26,12 @@ function addBookToLibrary(book) {
 const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, 'not read yet');
 const lordOfRings = new Book('The Lord of the Rings', 'J.R.R Tolkien', 1216, 'read')
 const harryPotter = new Book('Harry Potter and the Philosopher`s Stone ', 'J.K. Rowling', 223, 'not read yet')
+console.log(theHobbit.info());
 
-addBookToLibrary(theHobbit);
-addBookToLibrary(lordOfRings);
-addBookToLibrary(harryPotter);
+addToLibrary(theHobbit);
+addToLibrary(lordOfRings);
+addToLibrary(harryPotter);
+console.log(myLibrary);
 /* Finished manually adding content */
 
 
@@ -105,7 +110,7 @@ submit_button.addEventListener('click', (e) => {
     let read = data.get("read_status"); 
     let newBook = new Book(title, author,pages,read);
    
-    addBookToLibrary(newBook);    
+    addToLibrary(newBook);    
 
     /* Hide form-element and show add new book button */
     formElem.style.display = 'none';
