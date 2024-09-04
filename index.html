@@ -34,20 +34,20 @@
             <form action="/mylibrary-form-page" method="post">
                 <ul>
                     <li>
-                        <label for="title">Book Title</label>
-                        <input type="text" id="title" name="book_title">
+                        <label for="title">Book Title<span aria-label="required">*</span></label>
+                        <input type="text" id="title" name="book_title" required>
                     </li>
                     <li>
-                        <label for="author">Author</label>
-                        <input type="text" id="author" name="book_author">
+                        <label for="author">Author<span aria-label="required">*</span></label>
+                        <input type="text" id="author" name="book_author" required>
                     </li>
                     <li>
-                        <label for="pages">Number of Pages</label>
-                        <input type="text" id="pages" name="numberOfPages">
+                        <label for="pages">Number of Pages<span aria-label="required">*</span></label>
+                        <input type="number" id="pages" name="numberOfPages" min="10" max="3000" required>
                     </li>
                     <li>
-                        <label for="read">Read/Not read yet</label>
-                        <input type="text" id="read" name="read_status">
+                        <label for="read">Read/Not read yet<span aria-label="required">*</span></label>
+                        <input type="text" id="read" name="read_status" pattern="[Rr]ead|[Nn]ot ?read ?[yet]?" required>
                     </li>
                 </ul>
                 <button class="submit_button" type="submit">Add Book</button>

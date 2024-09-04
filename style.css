@@ -116,3 +116,12 @@ button {
 .delete_button {
     margin: 0px 10px;
 }
+
+/* Form validation */
+input:invalid {
+    border: 2px dashed black;
+  }
+  
+  input:valid {
+    border: 2px solid black;
+  }

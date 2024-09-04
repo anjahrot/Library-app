@@ -26,12 +26,12 @@ function addToLibrary(book) {
 const theHobbit = new Book('The Hobbit', 'J.R.R Tolkien', 295, 'not read yet');
 const lordOfRings = new Book('The Lord of the Rings', 'J.R.R Tolkien', 1216, 'read')
 const harryPotter = new Book('Harry Potter and the Philosopher`s Stone ', 'J.K. Rowling', 223, 'not read yet')
-console.log(theHobbit.info());
+
 
 addToLibrary(theHobbit);
 addToLibrary(lordOfRings);
 addToLibrary(harryPotter);
-console.log(myLibrary);
+
 /* Finished manually adding content */
 
 
@@ -94,12 +94,19 @@ add_button.addEventListener('click', () => {
         add_button.style.display = 'none';
 });
 
+const readStatus = document.getElementById('read');
 
 /* Stop default event and trigger formdata event  */
 submit_button.addEventListener('click', (e) => {
     /* Prevent sending to server on submit */
     e.preventDefault();
 
+    if(!formElem.reportValidity()) {
+        alert('Please fill in all fields');
+        if(readStatus.validity.patternMismatch) {
+             readStatus.setCustomValidity('Invalid value: read / not read yet');
+    }
+    } else {
     /* Creating a new formdata object */
     const data = new FormData(formElem);    
     
@@ -120,7 +127,8 @@ submit_button.addEventListener('click', (e) => {
     formElem.reset();
 
     /* Show updated library */
-    renderLibrary();      
+    renderLibrary();  
+    }    
 });
 
 
